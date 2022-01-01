@@ -10,6 +10,7 @@ import {
 } from '@expo-google-fonts/poppins'
 import AppLoading from 'expo-app-loading';
 import theme from './src/Global/styles/theme';
+import { Register } from './src/Screens/Register';
 
 
 export default function App() {
@@ -24,7 +25,8 @@ export default function App() {
   }
   return (
     <ThemeProvider theme={theme} >
-      <Dashboard />
+      <Register />
+
     </ThemeProvider>
   );
 }
