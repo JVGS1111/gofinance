@@ -11,6 +11,7 @@ import {
 import AppLoading from 'expo-app-loading';
 import theme from './src/Global/styles/theme';
 import { Register } from './src/Screens/Register';
+import { CategorySelect } from './src/Screens/CategorySelect';
 
 
 export default function App() {
