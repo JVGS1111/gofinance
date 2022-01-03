@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { HighLightCard } from '../../Components/HighlightCard';
 import { TransactionCard, DataProps } from '../../Components/TransactionCard';
-import { Container, Header, Title, UserWrapper, UserInfo, Transactions, HighLightCards, Photo, User, UserGreeting, UserName, Icon, ListTransactions } from './styles';
+import { Container, Header, Title, UserWrapper, LogoutButton, UserInfo, Transactions, HighLightCards, Photo, User, UserGreeting, UserName, Icon, ListTransactions } from './styles';
 
 
 export interface DataListProps extends DataProps {
@@ -44,6 +45,10 @@ export function Dashboard() {
             date: '20/02/2021'
         }
     ]
+    function logCOnsole() {
+        console.log('aaa');
+
+    }
     return (
         <Container >
             <Header>
@@ -55,7 +60,9 @@ export function Dashboard() {
                             <UserName>João</UserName>
                         </User>
                     </UserInfo>
-                    <Icon name="power" />
+                    <LogoutButton onPress={logCOnsole}>
+                        <Icon name="power" />
+                    </LogoutButton>
                 </UserWrapper>
             </Header>
             <HighLightCards

@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
-import { Dashboard } from './src/Screens/Dashboard';
 import { ThemeProvider } from 'styled-components/native';
 import {
   useFonts,
@@ -10,9 +9,9 @@ import {
 } from '@expo-google-fonts/poppins'
 import AppLoading from 'expo-app-loading';
 import theme from './src/Global/styles/theme';
-import { Register } from './src/Screens/Register';
-import { CategorySelect } from './src/Screens/CategorySelect';
-
+import { NavigationContainer } from '@react-navigation/native'
+import { AppRoutes } from './src/routes/app.routes';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -26,8 +25,11 @@ export default function App() {
   }
   return (
     <ThemeProvider theme={theme} >
-      <Register />
-
+      <NavigationContainer>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <AppRoutes />
+        </GestureHandlerRootView>
+      </NavigationContainer>
     </ThemeProvider>
   );
 }

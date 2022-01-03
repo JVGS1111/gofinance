@@ -90,7 +90,7 @@ export function Register() {
                             name="amount"
                             placeholder="Preço"
                             keyboardType="numeric"
-                            error={errors.name && errors.name.message}
+                            error={errors.amount && errors.amount.message}
                         />
                         <TransactionsTypes>
                             <TransactionTypeButton isActive={transactionType === 'up'} onPress={() => { handleTransactionsTypeSelect('up') }} title="Income" type="up" />
