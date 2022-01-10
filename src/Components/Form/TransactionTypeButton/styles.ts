@@ -12,15 +12,12 @@ interface ContainerProps {
     type: 'up' | 'down'
 }
 
-export const Container = styled(RectButton) <ContainerProps>`
+export const Container = styled.View <ContainerProps>`
     width: 48%;
 
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
     border: 1.5px solid ${({ theme }) => theme.colors.text};
 
-    padding: 16px;
+   
     border-radius: 5px;
 
     ${({ type, isActive }) => isActive && type === 'down' && css`
@@ -44,5 +41,12 @@ export const Title = styled.Text`
     font-size: ${RFValue(14)}px;
     font-family: ${({ theme }) => theme.fonts.regular};
 
+`;
+
+export const Button = styled(RectButton)`
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    justify-content: center;
 `;
 

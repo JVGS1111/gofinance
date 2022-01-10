@@ -98,3 +98,9 @@ export const ListTransactions = styled(FlatList)
     })`
 
 `as React.ComponentType as new <DataListProps>() => FlatList<DataListProps>;
+
+export const LoadContainer = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+`
