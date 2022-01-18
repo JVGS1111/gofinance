@@ -11,6 +11,7 @@ import { addMonths, subMonths, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { ActivityIndicator } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+import { useAuth } from "../../Hooks/Auth";
 
 interface ResponseTransactionsProps {
     type: 'positive' | 'negative';
@@ -28,8 +29,6 @@ interface CategoryData {
     percent: string;
 }
 
-const dataKey = '@gofinance:transactions';
-
 
 export function Resume() {
 
@@ -37,6 +36,7 @@ export function Resume() {
     const [isLoading, setIsLoading] = useState(false);
     const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([]);
     const theme = useTheme();
+    const { user } = useAuth();
 
     useFocusEffect(useCallback(() => {
         loadData();
@@ -44,6 +44,7 @@ export function Resume() {
 
     async function loadData() {
         setIsLoading(true)
+        const dataKey = `@gofinance:transactions_user:${user.id}`;
         const response = await AsyncStorage.getItem(dataKey);
         const responseFormatted = response ? JSON.parse(response) : [];
 

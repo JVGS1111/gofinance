@@ -1,4 +1,5 @@
 import { categories } from '../../utils/categories'
+import { formatDatesToDisplay } from '../../utils/formatDates';
 import { Container, Title, Amount, Footer, Category, Icon, CategoryName, Date } from './styles'
 
 
@@ -18,6 +19,7 @@ export function TransactionCard({ data }: TransactionCardProps) {
     const category = categories.filter(
         item => item.key == data.category
     )[0];
+    const date = formatDatesToDisplay(data.date);
 
     return (
         <Container>
@@ -34,7 +36,7 @@ export function TransactionCard({ data }: TransactionCardProps) {
                     <Icon name={category.icon} />
                     <CategoryName>{category.name}</CategoryName>
                 </Category>
-                <Date>{data.date}</Date>
+                <Date>{date}</Date>
             </Footer>
         </Container>
     )

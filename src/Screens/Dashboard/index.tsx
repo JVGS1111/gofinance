@@ -8,6 +8,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { ActivityIndicator } from 'react-native';
 import { useTheme } from 'styled-components';
 import { LastTransaction } from '../../Components/HighlightCard/styles';
+import { useAuth } from '../../Hooks/Auth';
 
 export interface DataListProps extends DataProps {
     id: string;
@@ -21,10 +22,10 @@ interface highLightDataProps {
     amount: string;
     lastTransaction: string;
 }
-const dataKey = '@gofinance:transactions';
 
 export function Dashboard() {
-    //AsyncStorage.clear()
+
+    const { singOut, user } = useAuth();
     const theme = useTheme();
     const [isLoading, setIsLoading] = useState(true);
     const [transactions, setTransactions] = useState<DataListProps[]>([]);
@@ -54,7 +55,10 @@ export function Dashboard() {
 
         const lastTransactions = Math.max.apply(Math,
             collection.filter(transaction => transaction.type === type)
-                .map(transaction => new Date(transaction.date).getTime())
+                .map(transaction => {
+                    const time = new Date(transaction.date).getTime();
+                    return time
+                })
         );
         if (lastTransactions.toString() == '-Infinity') {
             return ''
@@ -64,11 +68,14 @@ export function Dashboard() {
 
     function formatDateToString(date: string | number | Date) {
         const atDate = new Date(date);
+
         return `${atDate.getDate()} de ${atDate.toLocaleDateString('pt-BR', { month: 'long' })}`
 
     }
 
     async function loadTransactions() {
+        const dataKey = `@gofinance:transactions_user:${user.id}`;
+
         const response = await AsyncStorage.getItem(dataKey);
 
         const transactionsFromStorage = response ? JSON.parse(response) : [];
@@ -89,19 +96,13 @@ export function Dashboard() {
                     currency: 'BRL'
                 })
 
-                const date = Intl.DateTimeFormat('pt-BR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: '2-digit'
-                }).format(new Date(item.date))
-
                 return {
                     id: item.id,
                     name: item.name,
                     amount: amount,
                     type: item.type,
                     category: item.category,
-                    date: date
+                    date: item.date
                 }
             })
         const total = entriesTotal - expensiveTotal;
@@ -160,13 +161,13 @@ export function Dashboard() {
                         <Header>
                             <UserWrapper>
                                 <UserInfo>
-                                    <Photo source={{ uri: 'https://github.com/JVGS1111.png' }} />
+                                    <Photo source={{ uri: user.photo }} />
                                     <User>
                                         <UserGreeting>Olá, </UserGreeting>
-                                        <UserName>João</UserName>
+                                        <UserName>{user.name}</UserName>
                                     </User>
                                 </UserInfo>
-                                <LogoutButton >
+                                <LogoutButton onPress={singOut}>
                                     <Icon name="power" />
                                 </LogoutButton>
                             </UserWrapper>

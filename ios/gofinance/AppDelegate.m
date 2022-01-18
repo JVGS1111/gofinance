@@ -62,7 +62,10 @@ static void InitializeFlipper(UIApplication *application) {
 }
 
 // Linking API
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options 
+  {
   return [RCTLinkingManager application:application openURL:url options:options];
 }
 
@@ -73,4 +76,13 @@ static void InitializeFlipper(UIApplication *application) {
                      restorationHandler:restorationHandler];
 }
 
+// iOS 8.x or older
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return [RCTLinkingManager application:application openURL:url
+                    sourceApplication:sourceApplication annotation:annotation];
+}
 @end
