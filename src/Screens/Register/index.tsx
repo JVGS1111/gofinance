@@ -63,7 +63,10 @@ export function Register() {
         setCategoryModalOpen(false);
     }
     function handleOpenSelectCategoryModal() {
-        setCategoryModalOpen(true);
+        setTimeout(() => {
+            setCategoryModalOpen(true);
+        }, 900)//remover timeout
+
     }
 
     async function handleRegister(form: formData) {
@@ -150,13 +153,14 @@ export function Register() {
                             <TransactionTypeButton isActive={transactionType === 'negative'} onPress={() => { handleTransactionsTypeSelect('negative') }} title="Outcome" type="down" />
                         </TransactionsTypes>
                         <CategorySelectButton
+                            testID="button-category"
                             title={category.name}
                             onPress={handleOpenSelectCategoryModal}
                         />
                     </Fields>
                     <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
                 </Form>
-                <Modal visible={categoryModalOpen}>
+                <Modal testID="modal-category" visible={categoryModalOpen}>
                     <CategorySelect
                         category={category}
                         setCategory={setCategory}
